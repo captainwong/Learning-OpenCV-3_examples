@@ -14,7 +14,7 @@ using std::endl;
 
 void help(char **argv) {  // todo rewrite this
 	cout << "\n\n"
-		<< "Example 18-1:\nReading a chessboard’s width and height,\n"
+		<< "Example 18-1:\nReading a chessboard's width and height,\n"
 		<< "              reading and collecting the requested number of views,\n"
 		<< "              and calibrating the camera\n\n"
 		<< "Call:\n" << argv[0] << " <board_width> <board_height> <number_of_boards> <if_video,_delay_between_framee_capture> <image_scaling_factor>\n\n"
