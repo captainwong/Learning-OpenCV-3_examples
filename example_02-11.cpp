@@ -5,72 +5,76 @@
 #include <iostream>
 
 
-void help(char** argv ) {
+void help(char** argv) {
 	std::cout << "\n"
-	<< "Read in a video, write out a log polar of it\n"
-	<< argv[0] <<" <path/video> <paht/video_output>\n"
-	<< "For example:\n"
-	<< argv[0] << " ../tree.avi ../vout.avi\n"
-	<< "\nThen read it with:\n ./example_02-10 ../vout.avi\n"
-	<< std::endl;
+		<< "Read in a video, write out a log polar of it\n"
+		<< argv[0] << " <path/video> <paht/video_output>\n"
+		<< "For example:\n"
+		<< argv[0] << " ../tree.avi ../vout.avi\n"
+		<< "\nThen read it with:\n ./example_02-10 ../vout.avi\n"
+		<< std::endl;
 }
-	
 
-int main( int argc, char** argv ) {
-	
+
+int main(int argc, char** argv) {
+
 	if (argc != 3) {
 		help(argv);
 		return 0;
 	}
-		
 
-  cv::namedWindow( "Example 2-11", cv::WINDOW_AUTOSIZE );
-  cv::namedWindow( "Log_Polar", cv::WINDOW_AUTOSIZE );
 
-  // ( Note: could capture from a camera by giving a camera id as an int.)
-  //
+	cv::namedWindow("Example 2-11", cv::WINDOW_AUTOSIZE);
+	cv::namedWindow("Log_Polar", cv::WINDOW_AUTOSIZE);
 
-  cv::VideoCapture capture( argv[1] );
-  double fps = capture.get( CV_CAP_PROP_FPS );
-  cv::Size size(
-    (int)capture.get( CV_CAP_PROP_FRAME_WIDTH ),
-    (int)capture.get( CV_CAP_PROP_FRAME_HEIGHT )
-  );
+	// ( Note: could capture from a camera by giving a camera id as an int.)
+	//
 
-  cv::VideoWriter writer;
-  writer.open( argv[2], CV_FOURCC('M','J','P','G'), fps, size );
+	cv::VideoCapture capture(atoi(argv[1]));
+	double fps = capture.get(CV_CAP_PROP_FPS);
+	if (fps == 0.0) {
+		fps = 30;
+	}
 
-  cv::Mat logpolar_frame, bgr_frame;
+	cv::Size size(
+		(int)capture.get(CV_CAP_PROP_FRAME_WIDTH),
+		(int)capture.get(CV_CAP_PROP_FRAME_HEIGHT)
+	);
 
-  for(;;) {
+	cv::VideoWriter writer;
+	writer.open(argv[2], CV_FOURCC('M', 'J', 'P', 'G'), fps, size);
 
-    capture >> bgr_frame;
-    if( bgr_frame.empty() ) break; // end if done
+	cv::Mat logpolar_frame, bgr_frame;
 
-    cv::imshow( "Example 2-11", bgr_frame );
+	for (;;) {
 
-    cv::logPolar(
-      bgr_frame, // Input color frame
-      logpolar_frame, // Output log-polar frame
-      cv::Point2f( // Centerpoint for log-polar transformation
-        bgr_frame.cols/2, // x
-        bgr_frame.rows/2 // y
-      ),
-      40, // Magnitude (scale parameter)
-      CV_WARP_FILL_OUTLIERS // Fill outliers with 'zero'
-    );
+		capture >> bgr_frame;
+		if (bgr_frame.empty()) break; // end if done
 
-    cv::imshow( "Log_Polar", logpolar_frame );
+		cv::imshow("Example 2-11", bgr_frame);
 
-    writer << logpolar_frame;
+		cv::logPolar(
+			bgr_frame, // Input color frame
+			logpolar_frame, // Output log-polar frame
+			cv::Point2f( // Centerpoint for log-polar transformation
+						bgr_frame.cols / 2, // x
+						bgr_frame.rows / 2 // y
+			),
+			40, // Magnitude (scale parameter)
+			CV_WARP_FILL_OUTLIERS // Fill outliers with 'zero'
+		);
 
-    char c = cv::waitKey(10);
+		cv::imshow("Log_Polar", logpolar_frame);
 
-    if( c == 27 ) break; // allow the user to break out
+		writer << logpolar_frame;
 
-  }
+		char c = cv::waitKey(10);
 
-  writer.release();
-  capture.release();
+		if (c == 27) break; // allow the user to break out
+
+	}
+
+	writer.release();
+	capture.release();
 
 }

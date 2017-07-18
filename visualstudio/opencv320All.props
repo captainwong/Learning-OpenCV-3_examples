@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ImportGroup Label="PropertySheets" />
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+        <IncludePath>D:\dev_libs\opencv\build\include;$(IncludePath)</IncludePath>
+        <LibraryPath Condition="'$(Configuration)'=='Debug'">D:\dev_libs\opencv\build\lib\Debug;$(LibraryPath)</LibraryPath>
+        <LibraryPath Condition="'$(Configuration)'=='Release'">D:\dev_libs\opencv\build\lib\Release;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+        <Link Condition="'$(Configuration)'=='Debug'">
+          <AdditionalDependencies>opencv_superres320d.lib;opencv_ts320d.lib;opencv_video320d.lib;opencv_videoio320d.lib;opencv_videostab320d.lib;opencv_calib3d320d.lib;opencv_core320d.lib;opencv_features2d320d.lib;opencv_xfeatures2d320d.lib;opencv_flann320d.lib;opencv_highgui320d.lib;opencv_imgcodecs320d.lib;opencv_imgproc320d.lib;opencv_ml320d.lib;opencv_objdetect320d.lib;opencv_photo320d.lib;opencv_shape320d.lib;opencv_stitching320d.lib;%(AdditionalDependencies)</AdditionalDependencies>
+        </Link>
+        <Link Condition="'$(Configuration)'=='Release'">
+          <AdditionalDependencies>opencv_superres320.lib;opencv_ts320.lib;opencv_video320.lib;opencv_videoio320.lib;opencv_videostab320.lib;opencv_calib3d320.lib;opencv_core320.lib;opencv_features2d320.lib;opencv_xfeatures2d320.lib;opencv_flann320.lib;opencv_highgui320.lib;opencv_imgcodecs320.lib;opencv_imgproc320.lib;opencv_ml320.lib;opencv_objdetect320.lib;opencv_photo320.lib;opencv_shape320.lib;opencv_stitching320.lib;%(AdditionalDependencies)</AdditionalDependencies>
+        </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup />
+</Project>

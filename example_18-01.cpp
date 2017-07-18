@@ -63,13 +63,11 @@ int main(int argc, char *argv[]) {
 	}
 
 	// ALLOCATE STORAGE
-	//
 	vector<vector<cv::Point2f> > image_points;
 	vector<vector<cv::Point3f> > object_points;
 
 	// Capture corner views: loop until we've got n_boards successful
 	// captures (all corners on the board are found).
-	//
 	time_t last_captured_timestamp = 0;
 	cv::Size image_size;
 	while (image_points.size() < (size_t)n_boards) {
